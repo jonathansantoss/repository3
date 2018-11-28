@@ -1,5 +1,6 @@
 package Jogo;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -32,6 +33,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	private JButton btnRecords;
 	private JTextField txtNome;
 	private JTable tabela;
+	private JPanel painel;
 	private Sounds sound;
 
 	private boolean cadastroFase;
@@ -99,12 +101,16 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnNovoJogo = new JButton("Novo Jogo");
 		btnNovoJogo.setBounds(10, 10, 100, 100);
 
+		painel = new JPanel();
+		painel.setSize(400, 400);
+		painel.setBackground(Color.BLACK);
+		
+		btnRecords = new JButton("Records");
+		btnRecords.setBounds(100, 100, 100, 100);
+		
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.setBounds(100, 100, 100, 100);
 		btnEntrar.setVisible(false);
-
-		btnRecords = new JButton("Records");
-		btnRecords.setBounds(100, 100, 100, 100);
 		
 		txtNome = new JTextField(); 
 		txtNome.setVisible(false);
@@ -119,25 +125,24 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		GridBagConstraints regras = new GridBagConstraints();
 		GridBagLayout grid = new GridBagLayout();
 		
-		setLayout(grid);
 		
+		setLayout(grid);
 		setOpaque(true);
 		
 		regras.fill = GridBagConstraints.NONE;
 		regras.anchor = GridBagConstraints.CENTER;
-		regras.weightx = 10;
-		regras.weighty = 10;
+		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		add(btnNovoJogo,regras);
-		
+		regras.insets = new Insets(0, 200, 100, 200);
+		//add(btnNovoJogo,regras);
 		
 		
 		regras.anchor = GridBagConstraints.SOUTH;
-		regras.weightx = 5;
+		regras.weightx = 7;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 230, 200);
+		regras.insets = new Insets(0, 200, 50, 200);
 		add(btnRecords,regras);
 		
 		
@@ -158,6 +163,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		add(txtNome, regras2);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void tabela() {
 		LinkedList<Cadastro> cadastros = new LinkedList<Cadastro>();
 		cadastros = cadastroDAO.buscar();
@@ -168,8 +174,8 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		
 		DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 		
-		for (Cadastro cd : cadastros) 
-			modelo.addRow(new String[] {cd.nome,String.valueOf(cd.score)});
+		for (Cadastro cadastro : cadastros) 
+			modelo.addRow(new String[] {cadastro.nome,String.valueOf(cadastro.score)});
 		
 		GridBagConstraints regrasTabela = new GridBagConstraints();
 		regrasTabela.anchor = GridBagConstraints.NORTHEAST;
