@@ -47,6 +47,10 @@ public class Fase extends JPanel implements ActionListener {
 
 	private Sounds sound;
 
+	public int score = 0;
+
+	private JanelaCadastro cadastro;
+
 	public Fase() {
 		sound = new Sounds();
 
@@ -143,6 +147,7 @@ public class Fase extends JPanel implements ActionListener {
 			graficos.setColor(Color.RED);
 			graficos.drawString("Inimigos Restantes: " + inimigos.size(), 5, 15);
 			graficos.drawString("Inimigos abatidos: " + qntInimigosAbatidos, 5, 30);
+			graficos.drawString("Score: " + score, 5, 45);
 			graficos.fillRect(10, 10, 10, 10);
 			// graficos.drawRect(10, 10, 10, 10);
 
@@ -257,6 +262,7 @@ public class Fase extends JPanel implements ActionListener {
 					tempInimigo.setVisivel(false);
 					tempMissil.setVisivel(false);
 					qntInimigosAbatidos++;
+					score++;
 					sound.setSound("explosao");
 					if (qntInimigosAbatidos == 50) {
 						inimigos.clear();

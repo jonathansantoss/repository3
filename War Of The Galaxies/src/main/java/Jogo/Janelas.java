@@ -10,12 +10,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
+import DAO.CadastroDAO;
+
 public class Janelas extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private Cadastro cadastro;
-
+	private JanelaCadastro cadastro;
+	private Fase fase;
+	private CadastroDAO cadastroDAO;
+	
 	public Janelas() {
-		cadastro = new Cadastro();
+		cadastro = new JanelaCadastro();
+		cadastroDAO = new CadastroDAO();
+		fase = new Fase();
 		configuracaoMenu();
 	}
 	
@@ -38,7 +44,18 @@ public class Janelas extends JFrame {
 												// jogo
 		sair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cadastroDAO.atualizar(fase.score, cadastro.nome);
+				remove(fase);
+				
+				try {
+				Thread.sleep(1000);
+				}
+				catch (Exception es) {
+					
+				}
+				finally {
 				System.exit(0);
+				}
 			}
 		});
 
@@ -61,7 +78,8 @@ public class Janelas extends JFrame {
 	public void cadastroFase() {
 		if (cadastro.isCadastroFase() == true) {
 			remove(cadastro);
-			add(new Fase());
+			//fase = new Fase();
+			add(fase);
 			configuracao();
 		}
 		else 

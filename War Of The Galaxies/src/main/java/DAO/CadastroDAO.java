@@ -8,10 +8,12 @@ import java.sql.Statement;
 import java.util.LinkedList;
 
 import Jogo.Cadastro;
+import Jogo.JanelaCadastro;
 
 // classe para acessar o banco de dados
 public class CadastroDAO {
 	private Connection conexao;
+	private LinkedList<Cadastro> listaCadastro = new LinkedList<Cadastro>();
 
 	public CadastroDAO() {
 
@@ -23,7 +25,7 @@ public class CadastroDAO {
 	}
 
 	public void save(String nome) {
-		String sql = "INSERT INTO RANKING(nome) VALUES('" + nome + "')";
+		String sql = "INSERT INTO RANKING(nome,score) VALUES('" + nome + "'" + "," + 0 +")";
 
 		try {
 			Statement stmt = conexao.createStatement();
@@ -35,9 +37,8 @@ public class CadastroDAO {
 
 	}
 
-	// Testar
-	public void atualizar(int pontos, int id ) {
-		String sql = "UPDATE TABLE RANKING set score = " + pontos + " WHERE id = " + id;
+	public void atualizar(int pontos, String nome ) {
+		String sql = "UPDATE RANKING SET score = " + pontos + " WHERE nome = '" + nome + "'";
 
 		try {
 			Statement stmt = conexao.createStatement();
@@ -50,18 +51,18 @@ public class CadastroDAO {
 
 	// Mostra ranking de todos jogadores cadastrados
 	public LinkedList<Cadastro> buscar() {
-		String sql = "SELECT * FROM RANKING ORDER BY";
-		LinkedList<Cadastro> listaCadastro = new LinkedList<Cadastro>();
+		String sql = "SELECT score, nome FROM RANKING";
+		
 
 		try {
 			Statement stmt = conexao.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 
 			while (result.next()) {
-				Cadastro cadastro = new Cadastro();
-
 				int pontos = result.getInt("score");
 				String nome = result.getString("nome");
+								
+				Cadastro cadastro = new Cadastro();
 
 				cadastro.score = pontos;
 				cadastro.nome = nome;
@@ -86,7 +87,7 @@ public class CadastroDAO {
 			ResultSet result = stmt.executeQuery(sql);
 
 			while (result.next()) {
-				Cadastro cadastro = new Cadastro();
+				JanelaCadastro cadastro = new JanelaCadastro();
 
 				int pontos = result.getInt("score");
 				cadastro.score = pontos;
@@ -101,7 +102,4 @@ public class CadastroDAO {
 
 	}
 
-//	public void buscar(int id) {
-//
-//	}
 }
