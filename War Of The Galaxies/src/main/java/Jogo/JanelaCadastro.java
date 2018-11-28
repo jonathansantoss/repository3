@@ -157,23 +157,23 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 50, 200);
 		add(btnRecords,regras);
-		//
-		//
-		//GridBagConstraints regras2 = new GridBagConstraints();
-		//regras2.anchor = GridBagConstraints.NORTHEAST;
-		//regras2.gridx = 1;
-		//regras2.gridy = 1;
-		//regras2.weightx= 5;
-		//regras2.insets = new Insets(270, 270, 0, 450);
-		//add(btnEntrar,regras2);
-        //
-		//regras2.fill = GridBagConstraints.HORIZONTAL;
-		//regras2.gridx = 1;
-		//regras2.gridy = 1;
-		//regras2.weightx= 2;
-		//regras2.weighty= 2;
-		//regras2.insets = new Insets(275, 400, 0, 540);
-		//add(txtNome, regras2);
+		
+		
+		GridBagConstraints regras2 = new GridBagConstraints();
+		regras2.anchor = GridBagConstraints.NORTHEAST;
+		regras2.gridx = 1;
+		regras2.gridy = 1;
+		regras2.weightx= 5;
+		regras2.insets = new Insets(270, 270, 0, 450);
+		add(btnEntrar,regras2);
+       
+		regras2.fill = GridBagConstraints.HORIZONTAL;
+		regras2.gridx = 1;
+		regras2.gridy = 1;
+		regras2.weightx= 2;
+		regras2.weighty= 2;
+		regras2.insets = new Insets(275, 400, 0, 540);
+		add(txtNome, regras2);
 	}
 	
 	@SuppressWarnings("deprecation")
