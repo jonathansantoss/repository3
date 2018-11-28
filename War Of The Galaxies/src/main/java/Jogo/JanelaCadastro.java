@@ -1,6 +1,7 @@
 package Jogo;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.CadastroDAO;
@@ -84,14 +86,25 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		return cadastroFase;
 	}
 	
-	public void paint(Graphics g) {
-		// Metodo para pintar na tela do jogo
-		Graphics2D graficos = (Graphics2D) g;
-		graficos.drawImage(fundo, 0, 0, null);
-	}
+	//public void paint(Graphics g) {
+	//	// Metodo para pintar na tela do jogo
+	//	Graphics2D graficos = (Graphics2D) g;
+	//	graficos.drawImage(fundo, 0, 0, null);
+	//}
+	
+	public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics g2d =  g.create(); //Faz a cópia
+        g2d.fillOval(100, 100, 200, 200);
+        g2d.drawImage(fundo, 0, 0, null);
+        g2d.dispose(); //libera a cópia
+    }
 	
 	public void configuracao() {
 		sound = new Sounds();
+		
+		
+		SpringLayout layout = new SpringLayout();
 		
 		ImageIcon ref = new ImageIcon("Imagens-Jogo\\fundo-Cadastro.jpeg");
 		fundo = ref.getImage();
@@ -101,9 +114,10 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnNovoJogo = new JButton("Novo Jogo");
 		btnNovoJogo.setBounds(10, 10, 100, 100);
 
-		painel = new JPanel();
-		painel.setSize(400, 400);
+		painel = new JPanel(layout);
+		painel.setPreferredSize(new Dimension(500, 500));
 		painel.setBackground(Color.BLACK);
+		
 		
 		btnRecords = new JButton("Records");
 		btnRecords.setBounds(100, 100, 100, 100);
@@ -124,8 +138,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 
 		GridBagConstraints regras = new GridBagConstraints();
 		GridBagLayout grid = new GridBagLayout();
-		
-		
+	
 		setLayout(grid);
 		setOpaque(true);
 		
@@ -135,7 +148,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 100, 200);
-		//add(btnNovoJogo,regras);
+		add(btnNovoJogo,regras);
 		
 		
 		regras.anchor = GridBagConstraints.SOUTH;
@@ -144,23 +157,23 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 50, 200);
 		add(btnRecords,regras);
-		
-		
-		GridBagConstraints regras2 = new GridBagConstraints();
-		regras2.anchor = GridBagConstraints.NORTHEAST;
-		regras2.gridx = 1;
-		regras2.gridy = 1;
-		regras2.weightx= 5;
-		regras2.insets = new Insets(270, 270, 0, 450);
-		add(btnEntrar,regras2);
-
-		regras2.fill = GridBagConstraints.HORIZONTAL;
-		regras2.gridx = 1;
-		regras2.gridy = 1;
-		regras2.weightx= 2;
-		regras2.weighty= 2;
-		regras2.insets = new Insets(275, 400, 0, 540);
-		add(txtNome, regras2);
+		//
+		//
+		//GridBagConstraints regras2 = new GridBagConstraints();
+		//regras2.anchor = GridBagConstraints.NORTHEAST;
+		//regras2.gridx = 1;
+		//regras2.gridy = 1;
+		//regras2.weightx= 5;
+		//regras2.insets = new Insets(270, 270, 0, 450);
+		//add(btnEntrar,regras2);
+        //
+		//regras2.fill = GridBagConstraints.HORIZONTAL;
+		//regras2.gridx = 1;
+		//regras2.gridy = 1;
+		//regras2.weightx= 2;
+		//regras2.weighty= 2;
+		//regras2.insets = new Insets(275, 400, 0, 540);
+		//add(txtNome, regras2);
 	}
 	
 	@SuppressWarnings("deprecation")
