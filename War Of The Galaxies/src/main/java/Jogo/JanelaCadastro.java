@@ -187,7 +187,19 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		GridBagConstraints regras = new GridBagConstraints();
 		Font fonte = new Font("arial", Font.BOLD, 20);
 		
-		nomes = new JLabel("FABIANO");
+		nomes = new JLabel("DESENVOLVEDORES");
+		nomes.setFont(fonte);
+		nomes.setForeground(new Color(255, 140, 0));
+		
+		regras.anchor = GridBagConstraints.CENTER;
+		regras.weightx = 4;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, 180, 200);
+		add(nomes,regras);
+		
+		
+		nomes = new JLabel("FABIANO ALBINO FERREIRA");
 		nomes.setFont(fonte);
 		nomes.setForeground(new Color(255, 140, 0));
 		
@@ -196,11 +208,10 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 100, 200);
-		
 		add(nomes,regras);
 		
 		
-		nomes = new JLabel("HELTON");
+		nomes = new JLabel("HELTON CARLOS DE MOURA");
 		nomes.setFont(fonte);
 		nomes.setForeground(new Color(255, 140, 0));
 		
@@ -208,8 +219,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 50, 200);
-		
+		regras.insets = new Insets(0, 200, 20, 200);
 		add(nomes,regras);
 		
 		
@@ -221,11 +231,10 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 10, 200);
-		
+		regras.insets = new Insets(0, 200, -40, 200);
 		add(nomes,regras);
 		
-		nomes = new JLabel("VALDECIR");
+		nomes = new JLabel("VALDECIR MUNHAM JUNIOR");
 		nomes.setFont(fonte);
 		nomes.setForeground(new Color(255, 140, 0));
 		
@@ -233,8 +242,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, -30, 200);
-		
+		regras.insets = new Insets(0, 200, -80, 200);
 		add(nomes,regras);
 	}
 	
