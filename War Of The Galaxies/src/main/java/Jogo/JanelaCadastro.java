@@ -37,6 +37,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	private JButton btnEntrar;
 	private JButton btnRecords;
 	private JButton btnInfo;
+	private JButton btnVoltar;
 	
 	private JLabel nomes;
 	
@@ -72,7 +73,15 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
 			btnInfo.setVisible(false);
-			desenvolvedores();
+			btnVoltar.setVisible(true);
+			desenvolvedores(true);
+		}
+		else if (e.getSource() == btnVoltar) {
+			btnNovoJogo.setVisible(true);
+			btnRecords.setVisible(true);
+			btnInfo.setVisible(true);
+			btnVoltar.setVisible(false);
+			desenvolvedores(false);
 		}
 	}
 
@@ -120,6 +129,10 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnRecords = new JButton("Records");
 		btnRecords.setBounds(100, 100, 100, 100);
 		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.setBounds(100,100,100,100);
+		btnVoltar.setVisible(false);
+		
 		btnInfo = new JButton("Informações");
 		btnInfo.setBounds(100, 100, 100, 100);
 		
@@ -137,6 +150,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnEntrar.addMouseListener(this);
 		btnRecords.addMouseListener(this);
 		btnInfo.addMouseListener(this);
+		btnVoltar.addMouseListener(this);
 
 		GridBagConstraints regras = new GridBagConstraints();
 		GridBagLayout grid = new GridBagLayout();
@@ -155,14 +169,14 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 7;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 50, 200);
+		regras.insets = new Insets(0, 200, 60, 200);
 		add(btnRecords,regras);
 		
 		regras.anchor = GridBagConstraints.SOUTH;
 		regras.weightx = 7;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 10, 200);
+		regras.insets = new Insets(0, 200, 20, 200);
 		add(btnInfo,regras);
 		
 		regras.anchor = GridBagConstraints.NORTHEAST;
@@ -171,6 +185,13 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx= 5;
 		regras.insets = new Insets(270, 270, 0, 450);
 		add(btnEntrar,regras);
+		
+		regras.anchor = GridBagConstraints.SOUTH;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.weightx= 5;
+		regras.insets = new Insets(270, 270, 0, 450);
+		add(btnVoltar,regras);
        
 		regras.fill = GridBagConstraints.HORIZONTAL;
 		regras.gridx = 1;
@@ -182,7 +203,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	}
 	
 	
-	public void desenvolvedores() {
+	public void desenvolvedores(boolean visivel) {
 		
 		GridBagConstraints regras = new GridBagConstraints();
 		Font fonte = new Font("arial", Font.BOLD, 20);
@@ -190,6 +211,8 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		nomes = new JLabel("DESENVOLVEDORES");
 		nomes.setFont(fonte);
 		nomes.setForeground(new Color(255, 140, 0));
+		if (visivel == true) nomes.setVisible(true);
+		else nomes.setVisible(false);
 		
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
@@ -202,6 +225,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		nomes = new JLabel("FABIANO ALBINO FERREIRA");
 		nomes.setFont(fonte);
 		nomes.setForeground(new Color(255, 140, 0));
+		nomes.setVisible(false);
 		
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
@@ -219,9 +243,8 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, 20, 200);
+		regras.insets = new Insets(0, 200, 60, 200);
 		add(nomes,regras);
-		
 		
 		nomes = new JLabel("JONATHAN GOMES DOS SANTOS");
 		nomes.setFont(fonte);
@@ -231,8 +254,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, -40, 200);
+		regras.insets = new Insets(0, 200, 20, 200);
 		add(nomes,regras);
+		
 		
 		nomes = new JLabel("VALDECIR MUNHAM JUNIOR");
 		nomes.setFont(fonte);
@@ -242,8 +266,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
-		regras.insets = new Insets(0, 200, -80, 200);
+		regras.insets = new Insets(0, 200, -20, 200);
 		add(nomes,regras);
+		 
 	}
 	
 	
