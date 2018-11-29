@@ -2,6 +2,7 @@ package Jogo;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -14,6 +15,7 @@ import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,10 +32,14 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	
 	private CadastroDAO cadastroDAO;
 	private Image fundo;
+	
 	private JButton btnNovoJogo;
 	private JButton btnEntrar;
 	private JButton btnRecords;
 	private JButton btnInfo;
+	
+	private JLabel nomes;
+	
 	private JTextField txtNome;
 	private JTable tabela;
 
@@ -46,6 +52,8 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == btnNovoJogo) {
 			btnNovoJogo.setVisible(false);
+			btnRecords.setVisible(false);
+			btnInfo.setVisible(false);
 			btnEntrar.setVisible(true);
 			txtNome.setVisible(true);
 		}
@@ -57,10 +65,14 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		else if (e.getSource() == btnRecords) {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
+			btnInfo.setVisible(false);
 			tabela();
 		}
 		else if (e.getSource() == btnInfo) {
-			
+			btnNovoJogo.setVisible(false);
+			btnRecords.setVisible(false);
+			btnInfo.setVisible(false);
+			desenvolvedores();
 		}
 	}
 
@@ -124,6 +136,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnNovoJogo.addMouseListener(this);
 		btnEntrar.addMouseListener(this);
 		btnRecords.addMouseListener(this);
+		btnInfo.addMouseListener(this);
 
 		GridBagConstraints regras = new GridBagConstraints();
 		GridBagLayout grid = new GridBagLayout();
@@ -167,6 +180,64 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.insets = new Insets(275, 400, 0, 540);
 		add(txtNome, regras);
 	}
+	
+	
+	public void desenvolvedores() {
+		
+		GridBagConstraints regras = new GridBagConstraints();
+		Font fonte = new Font("arial", Font.BOLD, 20);
+		
+		nomes = new JLabel("FABIANO");
+		nomes.setFont(fonte);
+		nomes.setForeground(new Color(255, 140, 0));
+		
+		regras.anchor = GridBagConstraints.CENTER;
+		regras.weightx = 4;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, 100, 200);
+		
+		add(nomes,regras);
+		
+		
+		nomes = new JLabel("HELTON");
+		nomes.setFont(fonte);
+		nomes.setForeground(new Color(255, 140, 0));
+		
+		regras.anchor = GridBagConstraints.CENTER;
+		regras.weightx = 4;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, 50, 200);
+		
+		add(nomes,regras);
+		
+		
+		nomes = new JLabel("JONATHAN GOMES DOS SANTOS");
+		nomes.setFont(fonte);
+		nomes.setForeground(new Color(255, 140, 0));
+		
+		regras.anchor = GridBagConstraints.CENTER;
+		regras.weightx = 4;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, 10, 200);
+		
+		add(nomes,regras);
+		
+		nomes = new JLabel("VALDECIR");
+		nomes.setFont(fonte);
+		nomes.setForeground(new Color(255, 140, 0));
+		
+		regras.anchor = GridBagConstraints.CENTER;
+		regras.weightx = 4;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, -30, 200);
+		
+		add(nomes,regras);
+	}
+	
 	
 	@SuppressWarnings("deprecation")
 	public void tabela() {
