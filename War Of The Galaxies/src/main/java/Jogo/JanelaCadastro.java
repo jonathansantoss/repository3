@@ -33,10 +33,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	private JButton btnNovoJogo;
 	private JButton btnEntrar;
 	private JButton btnRecords;
+	private JButton btnInfo;
 	private JTextField txtNome;
 	private JTable tabela;
-	private JPanel painel;
-	private Sounds sound;
 
 	private boolean cadastroFase;
 
@@ -59,6 +58,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
 			tabela();
+		}
+		else if (e.getSource() == btnInfo) {
+			
 		}
 	}
 
@@ -86,26 +88,15 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		return cadastroFase;
 	}
 	
-	//public void paint(Graphics g) {
-	//	// Metodo para pintar na tela do jogo
-	//	Graphics2D graficos = (Graphics2D) g;
-	//	graficos.drawImage(fundo, 0, 0, null);
-	//}
-	
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics g2d =  g.create(); //Faz a cópia
+        Graphics g2d =  g.create();
         g2d.fillOval(100, 100, 200, 200);
         g2d.drawImage(fundo, 0, 0, null);
-        g2d.dispose(); //libera a cópia
+        g2d.dispose(); 
     }
 	
-	public void configuracao() {
-		sound = new Sounds();
-		
-		
-		SpringLayout layout = new SpringLayout();
-		
+	public void configuracao() {		
 		ImageIcon ref = new ImageIcon("Imagens-Jogo\\fundo-Cadastro.jpeg");
 		fundo = ref.getImage();
 		
@@ -113,14 +104,12 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 
 		btnNovoJogo = new JButton("Novo Jogo");
 		btnNovoJogo.setBounds(10, 10, 100, 100);
-
-		painel = new JPanel(layout);
-		painel.setPreferredSize(new Dimension(500, 500));
-		painel.setBackground(Color.BLACK);
-		
 		
 		btnRecords = new JButton("Records");
 		btnRecords.setBounds(100, 100, 100, 100);
+		
+		btnInfo = new JButton("Informações");
+		btnInfo.setBounds(100, 100, 100, 100);
 		
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.setBounds(100, 100, 100, 100);
@@ -140,7 +129,6 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		GridBagLayout grid = new GridBagLayout();
 	
 		setLayout(grid);
-		setOpaque(true);
 		
 		regras.fill = GridBagConstraints.NONE;
 		regras.anchor = GridBagConstraints.CENTER;
@@ -150,7 +138,6 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.insets = new Insets(0, 200, 100, 200);
 		add(btnNovoJogo,regras);
 		
-		
 		regras.anchor = GridBagConstraints.SOUTH;
 		regras.weightx = 7;
 		regras.gridx = 1;
@@ -158,22 +145,27 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.insets = new Insets(0, 200, 50, 200);
 		add(btnRecords,regras);
 		
+		regras.anchor = GridBagConstraints.SOUTH;
+		regras.weightx = 7;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.insets = new Insets(0, 200, 10, 200);
+		add(btnInfo,regras);
 		
-		GridBagConstraints regras2 = new GridBagConstraints();
-		regras2.anchor = GridBagConstraints.NORTHEAST;
-		regras2.gridx = 1;
-		regras2.gridy = 1;
-		regras2.weightx= 5;
-		regras2.insets = new Insets(270, 270, 0, 450);
-		add(btnEntrar,regras2);
+		regras.anchor = GridBagConstraints.NORTHEAST;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.weightx= 5;
+		regras.insets = new Insets(270, 270, 0, 450);
+		add(btnEntrar,regras);
        
-		regras2.fill = GridBagConstraints.HORIZONTAL;
-		regras2.gridx = 1;
-		regras2.gridy = 1;
-		regras2.weightx= 2;
-		regras2.weighty= 2;
-		regras2.insets = new Insets(275, 400, 0, 540);
-		add(txtNome, regras2);
+		regras.fill = GridBagConstraints.HORIZONTAL;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.weightx= 2;
+		regras.weighty= 2;
+		regras.insets = new Insets(275, 400, 0, 540);
+		add(txtNome, regras);
 	}
 	
 	@SuppressWarnings("deprecation")
