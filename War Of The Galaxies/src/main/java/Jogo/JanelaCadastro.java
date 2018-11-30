@@ -43,7 +43,6 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	private JLabel desenvolvedor4;
 	private JLabel versao;
 	
-
 	private JTextField txtNome;
 	private JTable tabela;
 
@@ -84,25 +83,46 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		}
 	}
 
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource() == btnNovoJogo) {
+			btnNovoJogo.setBackground(new Color(180, 230, 230));
+		}
+		else if (e.getSource() == btnRecords) {
+			btnRecords.setBackground(new Color(180, 230, 230));
+		}
+		else if (e.getSource() == btnInfo) {
+			btnInfo.setBackground(new Color(180, 230, 230));
+		}
+		else if (e.getSource() == btnEntrar) {
+			btnEntrar.setBackground(new Color(180, 230, 230));
+		}
+		else if (e.getSource() == btnVoltar) {
+			btnVoltar.setBackground(new Color(180, 230, 230));
+		}
+		
 	}
 
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mouseExited(MouseEvent e) {
+		JButton botaoCor = new JButton(); // criado botão só para colocar a cor original. Verificar outro forma
+		if (e.getSource() == btnNovoJogo) {
+			btnNovoJogo.setBackground(botaoCor.getBackground());
+		}
+		if (e.getSource() == btnRecords) {
+			btnRecords.setBackground(botaoCor.getBackground());
+		}
+		if (e.getSource() == btnInfo) {
+			btnInfo.setBackground(botaoCor.getBackground());
+		}
+		if (e.getSource() == btnEntrar) {
+			btnEntrar.setBackground(botaoCor.getBackground());
+		}
+		if (e.getSource() == btnVoltar) {
+			btnVoltar.setBackground(botaoCor.getBackground());
+		}
 	}
 
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mousePressed(MouseEvent e) 		{ }
+	public void mouseReleased(MouseEvent e)  	{ }
 
 	public boolean isCadastroFase() {
 		return cadastroFase;
@@ -138,19 +158,18 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnEntrar = new JButton("Entrar");
 		btnEntrar.setBounds(100, 100, 100, 100);
 		btnEntrar.setVisible(false);
-		
-		
+
 		desenvol = new JLabel("DESENVOLVEDORES");
 		desenvolvedor1 = new JLabel("FABIANO ALBINO FERREIRA");
 		desenvolvedor2 = new JLabel("HELTON CARLOS DE MOURA");
 		desenvolvedor3 = new JLabel("JONATHAN GOMES DOS SANTOS");
 		desenvolvedor4 = new JLabel("VALDECIR MUNHAM JUNIOR");
-		
+
 		Font fonteVersao = new Font("arial", Font.BOLD, 15);
 		versao = new JLabel("Versão 2.0");
 		versao.setFont(fonteVersao);
 		versao.setForeground(Color.RED);
-		
+
 		txtNome = new JTextField();
 		txtNome.setVisible(false);
 		txtNome.setBounds(10, 10, 10, 10);
@@ -203,13 +222,6 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 5;
 		regras.insets = new Insets(420, 270, 0, 270);
 		add(btnVoltar, regras);
-		
-		regras.anchor = GridBagConstraints.SOUTH;
-		regras.gridx = 1;
-		regras.gridy = 1;
-		regras.weightx = 5;
-		regras.insets = new Insets(0, 0, -190, 20);
-		add(versao, regras);
 
 		regras.fill = GridBagConstraints.HORIZONTAL;
 		regras.gridx = 1;
@@ -220,71 +232,64 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		add(txtNome, regras);
 	}
 
-	public void desenvolvedores(boolean visivel) {		
+	public void desenvolvedores(boolean visivel) {
 		GridBagConstraints regras = new GridBagConstraints();
 		Font fonte = new Font("arial", Font.BOLD, 20);
 
 		desenvol.setFont(fonte);
 		desenvol.setForeground(new Color(255, 140, 0));
 		desenvol.setVisible(visivel);
-		
+
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 180, 200);
 		add(desenvol, regras);
-		
+
 		desenvolvedor1.setFont(fonte);
 		desenvolvedor1.setForeground(new Color(255, 140, 0));
 		desenvolvedor1.setVisible(visivel);
-        
+
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 100, 200);
 		add(desenvolvedor1, regras);
-        
+
 		desenvolvedor2.setFont(fonte);
 		desenvolvedor2.setForeground(new Color(255, 140, 0));
 		desenvolvedor2.setVisible(visivel);
-		
+
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 60, 200);
 		add(desenvolvedor2, regras);
-        
+
 		desenvolvedor3.setFont(fonte);
 		desenvolvedor3.setForeground(new Color(255, 140, 0));
 		desenvolvedor3.setVisible(visivel);
-		
+
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, 20, 200);
 		add(desenvolvedor3, regras);
-        
+
 		desenvolvedor4.setFont(fonte);
 		desenvolvedor4.setForeground(new Color(255, 140, 0));
 		desenvolvedor4.setVisible(visivel);
-		
+
 		regras.anchor = GridBagConstraints.CENTER;
 		regras.weightx = 4;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.insets = new Insets(0, 200, -20, 200);
 		add(desenvolvedor4, regras);
-		
-		regras.anchor = GridBagConstraints.SOUTH;
-		regras.gridx = 1;
-		regras.gridy = 1;
-		regras.weightx = 5;
-		regras.insets = new Insets(0, -10, 0, 20);
-		add(versao, regras);
 	}
 
 	@SuppressWarnings("deprecation")
