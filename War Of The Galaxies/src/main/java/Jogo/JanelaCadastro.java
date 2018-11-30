@@ -170,7 +170,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		versao.setFont(fonteVersao);
 		versao.setForeground(Color.RED);
 
-		txtNome = new JTextField();
+		txtNome = new JTextField("Nome");
 		txtNome.setVisible(false);
 		txtNome.setBounds(10, 10, 10, 10);
 
@@ -224,11 +224,12 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		add(btnVoltar, regras);
 
 		regras.fill = GridBagConstraints.HORIZONTAL;
+		regras.anchor = GridBagConstraints.NORTHEAST;
 		regras.gridx = 1;
 		regras.gridy = 1;
 		regras.weightx = 2;
 		regras.weighty = 2;
-		regras.insets = new Insets(275, 400, 0, 540);
+		regras.insets = new Insets(273, 370, 0, 540);
 		add(txtNome, regras);
 	}
 
