@@ -67,7 +67,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
 			btnInfo.setVisible(false);
-			tabela();
+			
+			Ranking ranking = new Ranking();
+			add(ranking);
 		} else if (e.getSource() == btnInfo) {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
@@ -293,28 +295,4 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		add(desenvolvedor4, regras);
 	}
 
-	@SuppressWarnings("deprecation")
-	public void tabela() {
-		LinkedList<Cadastro> cadastros = new LinkedList<Cadastro>();
-		cadastros = cadastroDAO.buscar();
-		String colunas[] = { "Nome", "Score" };
-
-		tabela = new JTable(cadastros.size(), 2);
-		tabela.enable(false);
-
-		DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
-
-		for (Cadastro cadastro : cadastros)
-			modelo.addRow(new String[] { cadastro.nome, String.valueOf(cadastro.score) });
-
-		GridBagConstraints regrasTabela = new GridBagConstraints();
-		regrasTabela.anchor = GridBagConstraints.NORTHEAST;
-		regrasTabela.gridx = 1;
-		regrasTabela.gridy = 1;
-		regrasTabela.weightx = 10;
-		regrasTabela.insets = new Insets(70, 70, 0, 450);
-
-		tabela.setModel(modelo);
-		add(tabela, regrasTabela);
-	}
 }
