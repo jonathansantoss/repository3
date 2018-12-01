@@ -51,7 +51,7 @@ public class CadastroDAO {
 
 	// Mostra ranking de todos jogadores cadastrados
 	public LinkedList<Cadastro> buscar() {
-		String sql = "SELECT score, nome FROM RANKING";
+		String sql = "select * from Ranking ORDER BY score desc limit 10";
 		
 
 		try {

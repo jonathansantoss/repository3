@@ -1,21 +1,34 @@
 package Jogo;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import DAO.CadastroDAO;
 
 public class Fase extends JPanel implements ActionListener {
 	// Plano de fundo do jogo
@@ -25,6 +38,8 @@ public class Fase extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Image fundo;
+	private JTable tabela;
+	private CadastroDAO cadastroDAO;
 	// Imagem de fundo tela
 	private Nave nave;
 	// Imagem da nave
@@ -53,7 +68,9 @@ public class Fase extends JPanel implements ActionListener {
 
 	public Fase() {
 		sound = new Sounds();
-
+		
+		cadastroDAO = new CadastroDAO();
+		
 		setDoubleBuffered(true);
 		// N�o deixar falhas na tela ap�s a movimenta��o
 		setFocusable(true);
@@ -74,6 +91,13 @@ public class Fase extends JPanel implements ActionListener {
 		// Definir tempo de a��o, atualizando a tela a cada movimento
 		timer.start(); // iniar o timer
 		sound.setSound("background");
+		
+		GridBagLayout grid = new GridBagLayout();
+		setLayout(grid);
+		
+		tabela();
+		tabela.setVisible(false);
+		
 	}
 
 	public int getQntInimigos() {
@@ -111,15 +135,21 @@ public class Fase extends JPanel implements ActionListener {
 		return random.nextInt((maximo - minimo) + 1) + minimo;
 	}
 
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		// Metodo para pintar na tela do jogo
-		Graphics2D graficos = (Graphics2D) g;
-		graficos.drawImage(fundo, 0, 0, null);
+		
+		super.paintComponent(g);
+		Graphics g2d = g.create();
+		g2d.fillOval(100, 100, 200, 200);
+		g2d.drawImage(fundo, 0, 0, null);
+		
+		//Graphics2D graficos = (Graphics2D) g;
+		//graficos.drawImage(fundo, 0, 0, null);
 		// Apresentar o fundo no jogo; o 00 para deixar a imagem
 		// prenchida na tela toda e null parada nessa posi��o
 
 		if (jogo) {
-			graficos.drawImage(nave.getImagem(), nave.getX(), nave.getY(), this);
+			g2d.drawImage(nave.getImagem(), nave.getX(), nave.getY(), this);
 			// Apresentar a nave e suas posi��es no fundo do jogo
 
 			List<Missil> misseis = nave.getMisseis();
@@ -129,35 +159,41 @@ public class Fase extends JPanel implements ActionListener {
 
 			for (int i = 0; i < misseis.size(); i++) {
 				Missil m = (Missil) misseis.get(i);
-				graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+				g2d.drawImage(m.getImagem(), m.getX(), m.getY(), this);
 			}
 
 			// Localiza��o da imagem do inimigo no jogo, e contagem do numero de
 			// inimigos eliminados na partida
 			for (int i = 0; i < inimigos.size(); i++) {
 				Inimigo in = inimigos.get(i);
-				graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+				g2d.drawImage(in.getImagem(), in.getX(), in.getY(), this);
 			}
 
 			if (!exibeInimigos) {
-				graficos.drawImage(chefao.getImagem(), chefao.getX(), chefao.getY(), this);
+				g2d.drawImage(chefao.getImagem(), chefao.getX(), chefao.getY(), this);
 				chefao.movimentoBoss();
 			}
 
-			graficos.setColor(Color.RED);
-			graficos.drawString("Inimigos Restantes: " + inimigos.size(), 5, 15);
-			graficos.drawString("Inimigos abatidos: " + qntInimigosAbatidos, 5, 30);
-			graficos.drawString("Score: " + score, 5, 45);
-			graficos.fillRect(10, 10, 10, 10);
+			g2d.setColor(Color.RED);
+			g2d.drawString("Inimigos Restantes: " + inimigos.size(), 5, 15);
+			g2d.drawString("Inimigos abatidos: " + qntInimigosAbatidos, 5, 30);
+			g2d.drawString("Score: " + score, 5, 45);
+			g2d.fillRect(10, 10, 10, 10);
 			// graficos.drawRect(10, 10, 10, 10);
 
 		} else {
-			ImageIcon finaljogo = new ImageIcon("Imagens-Jogo\\final de jogo.jpg");
+			//ImageIcon finaljogo = new ImageIcon("Imagens-Jogo\\final de jogo.jpg");
 			// Acrescentar imagem de game over no jogo
-			graficos.drawImage(finaljogo.getImage(), 0, 0, null);
-
+			ImageIcon ref = new ImageIcon("Imagens-Jogo\\Records.jpg");
+			fundo = ref.getImage();
+			
+			g2d.drawImage(fundo, 0, 0, null);
+			
+			tabela.setVisible(true);
+			
+			
 		}
-		g.dispose();
+		g2d.dispose();
 		// Limpar a imagem anterior para a pr�xima pintura
 
 	}
@@ -282,6 +318,11 @@ public class Fase extends JPanel implements ActionListener {
 				jogo = true;
 				nave = new Nave(); // Reinicia a nave a posi��o inicial ap�s
 									// teclar enter
+				tabela.setVisible(false);
+				ImageIcon ref = new ImageIcon("Imagens-Jogo\\fundo.jpg");
+				fundo = ref.getImage();
+				repaint();
+				
 				inicializarInimigos(getQntInimigos()); // Reinicia os inimigos a
 														// poisi��o
 				// inicial ap�s teclar enter
@@ -298,4 +339,55 @@ public class Fase extends JPanel implements ActionListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
+	public void tabela() {
+		LinkedList<Cadastro> cadastros = new LinkedList<Cadastro>();
+		cadastros = cadastroDAO.buscar();
+		String colunas[] = { "Nome", "Score" };
+
+		tabela = new JTable(cadastros.size(), 2);
+		tabela.enable(false);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		DefaultTableModel modelo = new DefaultTableModel(null,colunas);
+		
+		@SuppressWarnings("serial")
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+		    @Override
+		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		    	JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); 
+		    	
+		        if (row == 0) {
+		        	label.setBackground(Color.LIGHT_GRAY);
+		        	label.setFont(new Font("arial", Font.BOLD, 12));
+		        	}
+		        else if (row >= 1)
+		        	label.setBackground(Color.WHITE);
+		        
+		        return label;
+		    }
+		};
+		
+		modelo.addRow(new String[] {"Nome", "Score"});
+		
+		for (Cadastro cadastro : cadastros)
+			modelo.addRow(new String[] { cadastro.nome, String.valueOf(cadastro.score) });
+
+		GridBagConstraints regrasTabela = new GridBagConstraints();
+		regrasTabela.anchor = GridBagConstraints.NORTHEAST;
+		regrasTabela.gridx = 1;
+		regrasTabela.gridy = 1;
+		regrasTabela.insets = new Insets(70, 70, 0, 70);
+
+		tabela.setModel(modelo);
+		
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(0).setCellRenderer(renderer);;
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(80);
+		tabela.getColumnModel().getColumn(1).setCellRenderer(renderer);;
+		
+		add(tabela, regrasTabela);
+	}
+	
+	
 }
