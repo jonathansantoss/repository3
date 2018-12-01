@@ -1,6 +1,7 @@
 package Jogo;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.CadastroDAO;
@@ -26,15 +28,18 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 
 	public int score;
 	public String nome;
-
+	
 	private CadastroDAO cadastroDAO;
 	private Image fundo;
-
+	
+	private JTable tabela;
+	
 	private JButton btnNovoJogo;
 	private JButton btnEntrar;
 	private JButton btnRecords;
 	private JButton btnInfo;
 	private JButton btnVoltar;
+	private JButton btnVoltarCadastro;
 
 	private JLabel desenvol;
 	private JLabel desenvolvedor1;
@@ -44,8 +49,6 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 	private JLabel versao;
 	
 	private JTextField txtNome;
-	private JTable tabela;
-
 	private boolean cadastroFase;
 
 	public JanelaCadastro() {
@@ -67,9 +70,11 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
 			btnInfo.setVisible(false);
-			
-			Ranking ranking = new Ranking();
-			add(ranking);
+			btnVoltarCadastro.setVisible(true);
+			ImageIcon ref = new ImageIcon("Imagens-Jogo\\Records.jpg");
+			fundo = ref.getImage();
+			repaint();
+			tabela.setVisible(true);
 		} else if (e.getSource() == btnInfo) {
 			btnNovoJogo.setVisible(false);
 			btnRecords.setVisible(false);
@@ -82,6 +87,15 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 			btnInfo.setVisible(true);
 			btnVoltar.setVisible(false);
 			desenvolvedores(false);
+		} else if (e.getSource() == btnVoltarCadastro) {
+			btnNovoJogo.setVisible(true);
+			btnRecords.setVisible(true);
+			btnInfo.setVisible(true);
+			btnVoltarCadastro.setVisible(false);
+			ImageIcon ref = new ImageIcon("Imagens-Jogo\\\\fundo-Cadastro.jpeg");
+			fundo = ref.getImage();
+			repaint();
+			tabela.setVisible(false);
 		}
 	}
 
@@ -101,6 +115,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		else if (e.getSource() == btnVoltar) {
 			btnVoltar.setBackground(new Color(180, 230, 230));
 		}
+		else if (e.getSource() == btnVoltarCadastro) {
+			btnVoltarCadastro.setBackground(new Color(180, 230, 230));
+		}
 		
 	}
 
@@ -109,17 +126,20 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		if (e.getSource() == btnNovoJogo) {
 			btnNovoJogo.setBackground(botaoCor.getBackground());
 		}
-		if (e.getSource() == btnRecords) {
+		else if (e.getSource() == btnRecords) {
 			btnRecords.setBackground(botaoCor.getBackground());
 		}
-		if (e.getSource() == btnInfo) {
+		else if (e.getSource() == btnInfo) {
 			btnInfo.setBackground(botaoCor.getBackground());
 		}
-		if (e.getSource() == btnEntrar) {
+		else if (e.getSource() == btnEntrar) {
 			btnEntrar.setBackground(botaoCor.getBackground());
 		}
-		if (e.getSource() == btnVoltar) {
+		else if (e.getSource() == btnVoltar) {
 			btnVoltar.setBackground(botaoCor.getBackground());
+		}
+		else if (e.getSource() == btnVoltarCadastro) {
+			btnVoltarCadastro.setBackground(botaoCor.getBackground());
 		}
 	}
 
@@ -153,7 +173,11 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(100, 100, 100, 100);
 		btnVoltar.setVisible(false);
-
+		
+		btnVoltarCadastro = new JButton("Voltar");
+		btnVoltarCadastro.setBounds(100, 100, 100, 100);
+		btnVoltarCadastro.setVisible(false);
+		
 		btnInfo = new JButton("Informações");
 		btnInfo.setBounds(100, 100, 100, 100);
 
@@ -183,6 +207,7 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		btnRecords.addMouseListener(this);
 		btnInfo.addMouseListener(this);
 		btnVoltar.addMouseListener(this);
+		btnVoltarCadastro.addMouseListener(this);
 
 		GridBagConstraints regras = new GridBagConstraints();
 		GridBagLayout grid = new GridBagLayout();
@@ -224,6 +249,13 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weightx = 5;
 		regras.insets = new Insets(420, 270, 0, 270);
 		add(btnVoltar, regras);
+		
+		regras.anchor = GridBagConstraints.SOUTH;
+		regras.gridx = 1;
+		regras.gridy = 1;
+		regras.weightx = 5;
+		regras.insets = new Insets(420, 270, 0, 270);
+		add(btnVoltarCadastro, regras);
 
 		regras.fill = GridBagConstraints.HORIZONTAL;
 		regras.anchor = GridBagConstraints.NORTHEAST;
@@ -233,6 +265,9 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.weighty = 2;
 		regras.insets = new Insets(273, 370, 0, 540);
 		add(txtNome, regras);
+		
+		tabela();
+		tabela.setVisible(false);
 	}
 
 	public void desenvolvedores(boolean visivel) {
@@ -294,5 +329,55 @@ public class JanelaCadastro extends JPanel implements MouseListener {
 		regras.insets = new Insets(0, 200, -20, 200);
 		add(desenvolvedor4, regras);
 	}
+	
 
+	@SuppressWarnings("deprecation")
+	public void tabela() {
+		LinkedList<Cadastro> cadastros = new LinkedList<Cadastro>();
+		cadastros = cadastroDAO.buscar();
+		String colunas[] = { "Nome", "Score" };
+
+		tabela = new JTable(cadastros.size(), 2);
+		tabela.enable(false);
+		tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		DefaultTableModel modelo = new DefaultTableModel(null,colunas);
+		
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+		    @Override
+		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		    	JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); 
+		    	
+		        if (row == 0) {
+		        	label.setBackground(Color.LIGHT_GRAY);
+		        	label.setFont(new Font("arial", Font.BOLD, 12));
+		        	}
+		        else if (row >= 1)
+		        	label.setBackground(Color.WHITE);
+		        
+		        return label;
+		    }
+		};
+		
+		modelo.addRow(new String[] {"Nome", "Score"});
+		
+		for (Cadastro cadastro : cadastros)
+			modelo.addRow(new String[] { cadastro.nome, String.valueOf(cadastro.score) });
+
+		GridBagConstraints regrasTabela = new GridBagConstraints();
+		regrasTabela.anchor = GridBagConstraints.NORTHEAST;
+		regrasTabela.gridx = 1;
+		regrasTabela.gridy = 1;
+		regrasTabela.insets = new Insets(70, 70, 0, 480);
+
+		tabela.setModel(modelo);
+		
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(150);
+		tabela.getColumnModel().getColumn(0).setCellRenderer(renderer);;
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(80);
+		tabela.getColumnModel().getColumn(1).setCellRenderer(renderer);;
+		
+		add(tabela, regrasTabela);
+	}
+	
 }
