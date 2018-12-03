@@ -53,7 +53,6 @@ public class CadastroDAO {
 	public LinkedList<Cadastro> buscar() {
 		String sql = "select * from Ranking ORDER BY score desc limit 10";
 		
-
 		try {
 			Statement stmt = conexao.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
